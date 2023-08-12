@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <title>Calculadora de Preço por Grama</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calculadora de Preço por Grama</h1>
+        <label for="productValue">Valor do Produto:</label>
+        <input type="text" id="productValue"
+            onkeydown="if(event.key==='Enter'){document.getElementById('productWeight').focus();}">
+        <label for="productWeight">Peso em Gramas:</label>
+        <input type="text" id="productWeight"
+            onkeydown="if(event.key==='Enter'){document.getElementById('calculateButton').click();}">
+        <button id="calculateButton">Calcular</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const calculateButton = document.getElementById("calculateButton");
+            const productValueInput = document.getElementById("productValue");
+            const productWeightInput = document.getElementById("productWeight");
+            const resultDiv = document.getElementById("result");
+
+            calculateButton.addEventListener("click", function () {
+                const productValue = parseFloat(productValueInput.value.replace(",", "."));
+                const productWeight = parseFloat(productWeightInput.value);
+                const pricePerGram = productValue / productWeight;
+                const pricePerKg = pricePerGram * 1000;
+
+                resultDiv.innerHTML = `
+          <p>Preço por Grama: R$ ${pricePerGram.toFixed(2)}</p>
+          <p>Preço por Quilograma: R$ ${pricePerKg.toFixed(2)}</p>
+        `;
+            });
+        });
+    </script>
+</body>
+
+</html>
